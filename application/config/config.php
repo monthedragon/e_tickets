@@ -17,9 +17,20 @@ date_default_timezone_set('Asia/Manila');
 #$config['base_url']	= 'http://192.168.200.73/acqui/';
 #$config['base_url']	= 'http://localhost/acqui/';
 //$config['base_url']	=  'http://192.168.2.171/bankard/';
-#$config['base_url']	=  'http://localhost/e_tickets';
-$serverIP = gethostbyname(gethostname());
-$config['base_url']	=  'http://'.$serverIP.'/e_tickets'; 
+#$config['base_url']	=  'http://localhost/template';
+if (defined('ENVIRONMENT'))
+{
+	switch (ENVIRONMENT)
+	{
+		case 'development_local':
+            $config['base_url']	=  'http://localhost/e_tickets';
+		break;
+
+		default:
+			$config['base_url']	=  'http://192.168.2.250/e_tickets';
+	}
+}
+
 
 /*
 |--------------------------------------------------------------------------

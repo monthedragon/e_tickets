@@ -18,7 +18,7 @@
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
-	define('ENVIRONMENT', 'development');
+	define('ENVIRONMENT', 'development_local');
 /*
  *---------------------------------------------------------------
  * ERROR REPORTING
@@ -33,7 +33,8 @@ if (defined('ENVIRONMENT'))
 	switch (ENVIRONMENT)
 	{
 		case 'development':
-			error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT);
+		case 'development_local':
+			error_reporting(E_ALL & ~E_WARNING);
 		break;
 	
 		case 'testing':
@@ -59,7 +60,18 @@ if (defined('ENVIRONMENT'))
 	#$system_path = '/var/www/html/acqui/system';
 	#$system_path = '/wamp/www/acqui/system';
 	#$system_path = '/xampp/htdocs/e_tickets/system';
-	$system_path = '/var/www/html/e_tickets/system';
+if (defined('ENVIRONMENT'))
+{
+	switch (ENVIRONMENT)
+	{
+		case 'development_local':
+			$system_path = 'C:\wamp\www\e_tickets\system';
+		break;
+
+		default:
+			$system_path = '/var/www/html/e_tickets/system';
+	}
+}
 
 /*
  *---------------------------------------------------------------
@@ -78,7 +90,18 @@ if (defined('ENVIRONMENT'))
 	#$application_folder = '/var/www/html/acqui/application';
 	#$application_folder = '/wamp/www/acqui/application';
 	#$application_folder = '/xampp/htdocs/e_tickets/application';
-	$application_folder = '/var/www/html/e_tickets/application';
+	if (defined('ENVIRONMENT'))
+	{
+		switch (ENVIRONMENT)
+		{
+			case 'development_local':
+				$application_folder = 'C:\wamp\www\e_tickets\application';
+			break;
+
+			default:
+				$application_folder = '/var/www/html/e_tickets/application';
+		}
+	}
 	
 
 /*
@@ -206,6 +229,7 @@ if (defined('ENVIRONMENT'))
  * And away we go...
  *
  */
+ 
 require_once BASEPATH.'core/CodeIgniter.php';
 
 /* End of file index.php */
